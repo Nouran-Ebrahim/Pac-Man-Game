@@ -678,14 +678,11 @@ function animate() {
         player.position.x = Boundary.width * obj.x + Boundary.width / 2
         player.position.y = Boundary.height * obj.y + Boundary.height / 2
         if (player.life === 0) {
-          document.querySelector('#lose-img').style.display = "block"
+          document.querySelector('#lose-img').classList.add("yp-animate")
+          document.querySelector('#lose-img').classList.remove("yp-u-hide")
+          document.querySelector('#feed').classList.remove("yp-u-hide")
           cancelAnimationFrame(animationId);
         }
-
-
-
-
-
       }
     }
   }
@@ -693,7 +690,10 @@ function animate() {
   if (comp.length === 4) {
     console.log("you win");
     cancelAnimationFrame(animationId);
-    document.querySelector('#win-img').style.display = "block"
+    // document.querySelector('#win-img').style.display = "block"
+    document.querySelector('#win-img').classList.add("yp-animate")
+    document.querySelector('#feed').classList.remove("yp-u-hide")
+    document.querySelector('#win-img').classList.remove("yp-u-hide")
   }
 
   // power ups go

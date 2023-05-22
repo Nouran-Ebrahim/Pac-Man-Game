@@ -122,19 +122,22 @@
 	display: none;
 
 }
-.data{
+
+.data {
 	color: white;
 	font-family: Comic Sans MS;
-    font-size: 20px;
+	font-size: 20px;
 }
-.cont{
+
+.cont {
 	display: flex;
-    justify-content: space-between;
-    flex-wrap: nowrap;
-    width: 430px;
-    align-items: center;
+	justify-content: space-between;
+	flex-wrap: nowrap;
+	width: 430px;
+	align-items: center;
 
 }
+
 #scoreEl {
 	display: none;
 
@@ -151,8 +154,96 @@
 	/* border-radius: 20px; */
 	left: 425px;
 	z-index: 1;
-	top:199px;
+	top: 199px;
 	align-items: center;
+}
+
+.yp-feedback-anim {
+	background: transparent;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	top: 50%;
+}
+
+.yp-feedback-anim--correct {
+	width: 540px;
+	height: 540px;
+	background-image: url("./happybee.png");
+}
+
+.yp-feedback-anim--correct.yp-animate {
+	animation: FrameAnimWaldoCorrect 4s steps(102) forwards;
+}
+
+.yp-feedback-anim--incorrect {
+	width: 540px;
+	height: 540px;
+	background-image: url("./sadbee.png") !important;
+}
+
+.yp-feedback-anim--incorrect.yp-animate {
+	animation: FrameAnimWaldoInCorrect 4s steps(102) forwards;
+}
+
+@keyframes FrameAnimWaldoInCorrect {
+	100% {
+		background-position: -55080px 0;
+	}
+}
+
+.yp-feedback {
+	position: absolute;
+	top: -65px;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	z-index: 200;
+}
+
+/* .yp-feedback-anim {
+	background: transparent;
+	background-repeat: no-repeat;
+	background-position: 0 0;
+	position: absolute;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	top: 50%;
+} */
+
+.yp-u-hide {
+	visibility: hidden;
+}
+
+
+
+/* .yp-feedback-anim--correct.yp-animate {
+	animation: FrameAnimWaldoCorrect 4s steps(102) forwards;
+} */
+
+@keyframes FrameAnimWaldoCorrect {
+	100% {
+		background-position: -55080px 0;
+	}
+}
+
+.yp-after-correct-anim-container.yp-animate-children .yp-after-correct-anim {
+	-webkit-animation: CorrectItemAnim 2s steps(28) forwards;
+	animation: CorrectItemAnim 2s steps(28) forwards;
+}
+
+@-webkit-keyframes CorrectItemAnim {
+	100% {
+		background-position: -8394px 0;
+	}
+}
+
+@keyframes CorrectItemAnim {
+	100% {
+		background-position: -8394px 0;
+	}
 }
 
 .start button {
@@ -699,11 +790,11 @@
 	}
 } */
 .life {
-    display: flex;
-    align-items: center;
+	display: flex;
+	align-items: center;
 }
 
 .heart {
-    height: 55px;
-    margin: auto 5px;
+	height: 55px;
+	margin: auto 5px;
 }
