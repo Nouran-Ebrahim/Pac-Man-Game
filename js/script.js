@@ -37,7 +37,7 @@ class Player {
     this.radius = 15;
     this.start = 0.2;
     this.end = 2 * Math.PI - 0.2;
-    this.openRate = 0.11;
+    this.openRate = 0.15;
     this.rotation = 0; // to rotate player according to keys
     this.life = 3;
   }
