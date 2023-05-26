@@ -374,11 +374,28 @@ body {
 
 
 }
-
+.bg-canva{
+  position: absolute;
+    width: 439px;
+    height: 517px;
+    background-color: black;
+    left: 360px;
+    top: 67px;
+    display: none;
+}
 .pageContainer {
   padding: 0 25px;
 }
-
+.name{
+  position: absolute;
+  top: 426px;
+  left: 264px;
+  width: 55%;
+}
+.name img{
+  width: 100%;
+  filter: drop-shadow(12px 2px 15px #f5821f);
+}
 .pageContent {
   position: relative;
   /*top: -10px;*/
@@ -387,9 +404,10 @@ body {
   border: 5px solid #f5821f;
   border-radius: 20px;
   background-color: black;
-  background: url("../pac-man-2-the-new-adventures-desktop-wallpaper-video-game-wallpaper-png-favpng-7JUdYjGLCrdGP8ahns6sRTCCt.jpg") no-repeat;
+background-image: url('../assets/images/pacman_bg.jpg');
+border-radius: 20px;
   background-size: cover;
-  background-position: -40px 0px;
+
 
 
 }

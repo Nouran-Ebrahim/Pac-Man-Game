@@ -1,15 +1,20 @@
+
+var correctImg = '<div class="showAnswerTickMark showAns"><img src="assets/images/tikMark.png" /></div>';
+var incorrectImg = '<div class="showAnswerCrossMark showAns"><img src="assets/images/crossMark.png" /></div>';
+var $corr = $("#corr");
+var $incorr = $("#incorr");
+var lastAudio = 0;
+//  generate canvas
 const canvas = document.querySelector("canvas");
 const c = canvas.getContext("2d");
-
-const scoreEl = document.querySelector("#scoreEl");
-const word1El = document.querySelector("#w1");
-const word2El = document.querySelector("#w2");
-const word3El = document.querySelector("#w3");
-const word4El = document.querySelector("#w4");
 canvas.width = 460;
 canvas.height = 520;
-const comp = document.getElementsByClassName('compelete');
+
+var words = []     //empty array to push object of words
+const comp = document.getElementsByClassName('compelete'); // add class with correct answer
 const lifeEl = document.querySelectorAll('.heart');
+var arr = 0;      // to arrange the sentence 
+
 class Boundary {
   static width = 40;
   static height = 40;
@@ -21,9 +26,6 @@ class Boundary {
   }
 
   draw() {
-    // c.fillStyle = 'blue'
-    // c.fillRect(this.position.x, this.position.y, this.width, this.height)
-
     c.drawImage(this.image, this.position.x, this.position.y);
   }
 }
@@ -33,9 +35,10 @@ class Player {
     this.position = position;
     this.velocity = velocity;
     this.radius = 15;
-    this.radians = 0.2;
-    this.openRate = 0.15;
-    this.rotation = 0;
+    this.start = 0.2;
+    this.end = 2 * Math.PI - 0.2;
+    this.openRate = 0.11;
+    this.rotation = 0; // to rotate player according to keys
     this.life = 3;
   }
 
@@ -49,8 +52,8 @@ class Player {
       this.position.x,
       this.position.y,
       this.radius,
-      this.radians,
-      Math.PI * 2 - this.radians
+      this.start,
+      this.end
     );
     c.lineTo(this.position.x, this.position.y);
     c.fillStyle = "yellow";
@@ -64,9 +67,10 @@ class Player {
     this.position.x += this.velocity.x;
     this.position.y += this.velocity.y;
 
-    if (this.radians < 0 || this.radians > 0.75) this.openRate = -this.openRate;
+    if (this.start < 0 || this.start > 0.75) this.openRate = -this.openRate;
 
-    this.radians += this.openRate;
+    this.start += this.openRate;
+    this.end -= this.openRate;
   }
 }
 
@@ -112,6 +116,7 @@ class Pellet {
   }
 }
 
+//make player scared
 class PowerUp {
   constructor({ position }) {
     this.position = position;
@@ -126,77 +131,25 @@ class PowerUp {
     c.closePath();
   }
 }
-class Word1 {
-  constructor({ position }) {
+
+class Word {
+  constructor({ position, word }) {
     this.position = position
     this.radius = 5
-
+    this.word = word
   }
   draw() {
-
     c.font = "20px Comic Sans MS";
     c.fillStyle = "white";
     c.textAlign = "center";
-    c.fillText("this", this.position.x + 20, this.position.y + 25)
-
+    c.fillText(this.word, this.position.x + 20, this.position.y + 25)
   }
-
 }
-class Word2 {
-  constructor({ position }) {
-    this.position = position
-    this.radius = 5
 
-  }
-  draw() {
-
-    c.font = "20px Comic Sans MS";
-    c.fillStyle = "white";
-    c.textAlign = "center";
-    c.fillText("is", this.position.x + 20, this.position.y + 25)
-
-  }
-
-}
-class Word3 {
-  constructor({ position }) {
-    this.position = position
-    this.radius = 5
-
-  }
-  draw() {
-
-    c.font = "20px Comic Sans MS";
-    c.fillStyle = "white";
-    c.textAlign = "center";
-    c.fillText("my", this.position.x + 20, this.position.y + 25)
-
-  }
-
-}
-class Word4 {
-  constructor({ position }) {
-    this.position = position
-    this.radius = 5
-
-  }
-  draw() {
-
-    c.font = "20px Comic Sans MS";
-    c.fillStyle = "white";
-    c.textAlign = "center";
-    c.fillText("sister", this.position.x + 10, this.position.y + 25)
-
-  }
-
-}
 const pellets = [];
-const words1 = []
-const words2 = []
-const words3 = []
-const words4 = []
 const boundaries = [];
 const powerUps = [];
+
 const ghosts = [
   new Ghost({
     position: {
@@ -232,6 +185,7 @@ const ghosts = [
   }),
 
 ];
+
 const player = new Player({
   position: {
     x: Boundary.width + Boundary.width / 2,
@@ -242,6 +196,7 @@ const player = new Player({
     y: 0,
   },
 });
+
 const keys = {
   ArrowUp: {
     pressed: false,
@@ -258,23 +213,26 @@ const keys = {
 };
 
 let lastKey = "";
-let score = 0;
 
+// drow the boundries and put words randomly
+const array = ['w1', 'w2', 'w3', 'w4'];
+const shuffledArray = array.sort((a, b) => 0.5 - Math.random()); // make words random
 const map = [
   ["1", "-", "-", "-", "-", "-", "-", "-", "-", "-", "2"],
-  ["|", "", ".", ".", ".", "w1", ".", ".", ".", ".", "|"],
+  ["|", "", ".", ".", ".", shuffledArray[0], ".", ".", ".", ".", "|"],
   ["|", ".", "b", ".", "[", "7", "]", ".", "b", ".", "|"],
-  ["|", ".", "w2", ".", ".", "_", ".", ".", ".", ".", "|"],
+  ["|", ".", shuffledArray[1], ".", ".", "_", ".", ".", ".", ".", "|"],
   ["|", ".", "[", "]", ".", ".", ".", "[", "]", ".", "|"],
   ["|", ".", ".", ".", ".", "^", ".", ".", ".", ".", "|"],
   ["|", ".", "b", ".", "[", "+", "]", ".", "b", ".", "|"],
-  ["|", ".", ".", ".", ".", "_", ".", "", "w4", ".", "|"],
+  ["|", ".", ".", ".", ".", "_", ".", ".", shuffledArray[3], ".", "|"],
   ["|", ".", "[", "]", ".", ".", ".", "[", "]", ".", "|"],
   ["|", ".", ".", ".", ".", "^", ".", ".", ".", ".", "|"],
   ["|", ".", "b", ".", "[", "5", "]", ".", "b", ".", "|"],
-  ["|", ".", ".", ".", ".", "w3", ".", ".", ".", "p", "|"],
+  ["|", ".", ".", ".", ".", shuffledArray[2], ".", ".", ".", "p", "|"],
   ["4", "-", "-", "-", "-", "-", "-", "-", "-", "-", "3"],
 ];
+
 
 function createImage(src) {
   const image = new Image();
@@ -486,54 +444,56 @@ map.forEach((row, i) => {
         );
         break;
       case 'w1':
-        words1.push(
-          new Word1({
+        words.push(
+          new Word({
             position: {
               x: j * Boundary.width,
               y: i * Boundary.height
             },
-
+            word: "this"
           })
         )
         break
       case 'w2':
-        words2.push(
-          new Word2({
+        words.push(
+
+          new Word({
             position: {
               x: j * Boundary.width,
               y: i * Boundary.height
             },
-
+            word: "is"
           })
         )
         break
       case 'w3':
-        words3.push(
-          new Word3({
+        words.push(
+          new Word({
             position: {
               x: j * Boundary.width,
               y: i * Boundary.height
             },
-
+            word: "my"
           })
         )
         break
       case 'w4':
-        words4.push(
-          new Word4({
+        words.push(
+          new Word({
             position: {
               x: j * Boundary.width,
               y: i * Boundary.height
             },
-
+            word: "sister"
           })
         )
         break
     }
   });
 });
+
+// function to protect the player from collision
 function circleCollidesWithRectangle2({ circle, rectangle }) {
-  const padding = Boundary.width / 2 - circle.radius - 1;
   return (
     circle.position.y - circle.radius + circle.velocity.y <=
     rectangle.position.y + rectangle.height &&
@@ -545,6 +505,7 @@ function circleCollidesWithRectangle2({ circle, rectangle }) {
     rectangle.position.x + rectangle.width
   );
 }
+// function to protect the ghosts from collision
 function circleCollidesWithRectangle({ circle, rectangle }) {
   const padding = Boundary.width / 2 - circle.radius - 1;
   return (
@@ -560,8 +521,10 @@ function circleCollidesWithRectangle({ circle, rectangle }) {
 }
 
 let animationId;
+
 function animate() {
   animationId = requestAnimationFrame(animate);
+  document.querySelector('.titleImg').style.display = 'block'
   c.clearRect(0, 0, canvas.width, canvas.height);
 
   if (keys.ArrowUp.pressed && lastKey === "ArrowUp") {
@@ -625,6 +588,7 @@ function animate() {
         break;
       } else {
         player.velocity.y = 2;
+
       }
     }
   } else if (keys.ArrowRight.pressed && lastKey === "ArrowRight") {
@@ -664,33 +628,28 @@ function animate() {
       if (ghost.scared) {
         ghosts.splice(i, 1);
       } else {
-
-        const motions = [{ x: 3, y: 6 }, { x: 6, y: 3 }, { x: 6, y: 9 }, { x: 9, y: 6 }, { x: 1, y: 11 },{x:5,y:4},{x:7,y:10}]
+// add player in random places in the map
+        const motions = [{ x: 3, y: 6 }, { x: 6, y: 3 }, { x: 6, y: 9 }, { x: 9, y: 6 }, { x: 1, y: 11 }, { x: 5, y: 4 }, { x: 7, y: 10 }]
         var motionIndex = Math.floor(Math.random() * motions.length)
         var obj = motions[motionIndex]
-        console.log(obj)
-
-        // cancelAnimationFrame(animationId);
-        console.log("you lose one life");
-        player.life--
-        console.log(player.life);
-        lifeEl[player.life].style.visibility="hidden"
+        player.life-- // decrease life when player attacked
+        lifeEl[player.life].style.visibility = "hidden"
         player.position.x = Boundary.width * obj.x + Boundary.width / 2
         player.position.y = Boundary.height * obj.y + Boundary.height / 2
+
         if (player.life === 0) {
           document.querySelector('#lose-img').classList.add("yp-animate")
           document.querySelector('#lose-img').classList.remove("yp-u-hide")
           document.querySelector('#feed').classList.remove("yp-u-hide")
-          cancelAnimationFrame(animationId);
+          cancelAnimationFrame(animationId); //stop the game when losing
         }
       }
     }
   }
- 
-  if (comp.length === 4) {
-    console.log("you win");
+
+  // win the game
+  if (comp.length === $('.ans').length) {
     cancelAnimationFrame(animationId);
-    // document.querySelector('#win-img').style.display = "block"
     document.querySelector('#win-img').classList.add("yp-animate")
     document.querySelector('#feed').classList.remove("yp-u-hide")
     document.querySelector('#win-img').classList.remove("yp-u-hide")
@@ -710,7 +669,6 @@ function animate() {
       powerUp.radius + player.radius
     ) {
       powerUps.splice(i, 1);
-
       // make ghosts scared
       ghosts.forEach((ghost) => {
         ghost.scared = true;
@@ -721,60 +679,30 @@ function animate() {
       });
     }
   }
-  words1.forEach((word1, i) => {
-    word1.draw()
-    if (Math.hypot(
-      word1.position.x + 20 - player.position.x,
-      word1.position.y + 25 - player.position.y
-    ) <
-      word1.radius + player.radius) {
-      console.log('word1');
-      word1El.innerHTML = "This "
-      word1El.classList.add('compelete')
-      words1.splice(i, 1)
 
+  //  remove the correct word from the array and check the arrange 
+  words.forEach((word, i) => {
+    word.draw()
+    if (Math.hypot(
+      word.position.x + 20 - player.position.x,
+      word.position.y + 25 - player.position.y
+    ) <
+      word.radius + player.radius) {
+      if ($(`#${word.word}`).attr("data-ans") == arr) {
+        $(`#${word.word}`).text(`${word.word}`)
+        $(`#${word.word}`).addClass('compelete')
+        $(`#${word.word}`).addClass('dis')
+        words.splice(i, 1)
+        arr++
+        $corr[0].play()
+      }
+      else {
+        $incorr[0].play()
+      }
     }
   })
-  words2.forEach((Word2, i) => {
-    Word2.draw()
-    if (Math.hypot(
-      Word2.position.x + 20 - player.position.x,
-      Word2.position.y + 25 - player.position.y
-    ) <
-      Word2.radius + player.radius) {
-      console.log('Word2');
-      word2El.innerHTML = " is "
-      word2El.classList.add('compelete')
 
-      words2.splice(i, 1)
-    }
-  })
-  words3.forEach((Word3, i) => {
-    Word3.draw()
-    if (Math.hypot(
-      Word3.position.x + 20 - player.position.x,
-      Word3.position.y + 25 - player.position.y
-    ) <
-      Word3.radius + player.radius) {
-      console.log('Word3');
-      word3El.innerHTML = " my "
-      word3El.classList.add('compelete')
-      words3.splice(i, 1)
-    }
-  })
-  words4.forEach((word4, i) => {
-    word4.draw()
-    if (Math.hypot(
-      word4.position.x + 10 - player.position.x,
-      word4.position.y + 25 - player.position.y
-    ) <
-      word4.radius + player.radius) {
-      console.log('word4');
-      word4El.innerHTML = " sister"
-      word4El.classList.add('compelete')
-      words4.splice(i, 1)
-    }
-  })
+
   // touch pellets here
   for (let i = pellets.length - 1; 0 <= i; i--) {
     const pellet = pellets[i];
@@ -788,8 +716,6 @@ function animate() {
       pellet.radius + player.radius
     ) {
       pellets.splice(i, 1);
-      score += 10;
-      scoreEl.innerHTML = score;
     }
   }
 
@@ -810,6 +736,7 @@ function animate() {
   player.velocity.x = 0;
   player.velocity.y = 0;
 
+  // make freedom motion to the ghosts
   ghosts.forEach((ghost) => {
     ghost.update();
 
@@ -884,25 +811,17 @@ function animate() {
       ghost.prevCollisions = collisions;
 
     if (JSON.stringify(collisions) !== JSON.stringify(ghost.prevCollisions)) {
-      // console.log('gogo')
 
       if (ghost.velocity.x > 0) ghost.prevCollisions.push("right");
       else if (ghost.velocity.x < 0) ghost.prevCollisions.push("left");
       else if (ghost.velocity.y < 0) ghost.prevCollisions.push("up");
       else if (ghost.velocity.y > 0) ghost.prevCollisions.push("down");
 
-      // console.log(collisions);
-      // console.log(ghost.prevCollisions);
-
       const pathways = ghost.prevCollisions.filter((collision) => {
         return !collisions.includes(collision);
       });
-      // console.log({ pathways });
 
       const direction = pathways[Math.floor(Math.random() * pathways.length)];
-
-      // console.log({ direction });
-
       switch (direction) {
         case "down":
           ghost.velocity.y = ghost.speed;
@@ -927,35 +846,28 @@ function animate() {
 
       ghost.prevCollisions = [];
     }
-    // console.log(collisions)
   });
 
-  if (player.velocity.x > 0) player.rotation = 0;
-  else if (player.velocity.x < 0) player.rotation = Math.PI;
-  else if (player.velocity.y > 0) player.rotation = Math.PI / 2;
-  else if (player.velocity.y < 0) player.rotation = Math.PI * 1.5;
 } // end of animate()
+//function to start the game
 function go() {
   setTimeout(() => {
     animate();
-    document.querySelector('#scoret').style.display = 'inline-block'
-    document.querySelector('#scoreEl').style.display = 'inline-block'
     document.querySelector('.words').style.display = 'flex'
     document.querySelector('.cd-wrapper').style.display = 'none'
     document.querySelector('.canv').style.display = 'block'
-
-
+    document.querySelector('.bg-canva').style.display = 'block'
+    document.querySelector('.name').style.display = 'none'
   }, 4000);
 }
 
 function start() {
   document.querySelector('.cd-wrapper').style.display = 'block'
+  document.querySelector('.bg-canva').style.display = 'none'
   document.querySelector('.start-btn').style.display = 'none'
+  document.querySelector('.name').style.display = 'none'
   go()
-
-
 }
-
 
 function fnReloadAll() {
   window.location.reload()
@@ -965,18 +877,26 @@ addEventListener("keydown", ({ key }) => {
   switch (key) {
     case "ArrowUp":
       keys.ArrowUp.pressed = true;
+      //  to rotate mouse of player up
+      player.rotation = Math.PI * 1.5
       lastKey = "ArrowUp";
       break;
     case "ArrowLeft":
       keys.ArrowLeft.pressed = true;
+      //  to rotate mouse of player left
+      player.rotation = Math.PI;
       lastKey = "ArrowLeft";
       break;
     case "ArrowDown":
       keys.ArrowDown.pressed = true;
+      //  to rotate mouse of player down
+      player.rotation = Math.PI / 2;
       lastKey = "ArrowDown";
       break;
     case "ArrowRight":
       keys.ArrowRight.pressed = true;
+
+      player.rotation = 0;
       lastKey = "ArrowRight";
       break;
   }

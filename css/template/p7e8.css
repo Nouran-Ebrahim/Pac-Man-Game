@@ -22,17 +22,30 @@
 
 .template1_v1 .showAnswerTickMark,
 .template1_v1 .showAnswerCrossMark {
+	position: relative;
+    width: 40px;
+    top: 0;
+    right: -40px;
+    /* display: none;*/
+}
+.template1_v1 .showAnswerTickMark img,
+.template1_v1 .showAnswerCrossMark img{
+	width: 100%;
+}
+.layer{
 	position: absolute;
 	top: 0;
-	right: 40px;
-	/*display:none;*/
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: rgba(0,0,0,0.6);
+	border-radius: 20px;
 }
-
-.template1_v1 .showAnswerCrossMark {
+/* .template1_v1 .showAnswerCrossMark {
 	animation-name: crossBlinker;
 	animation-duration: 1s;
 	opacity: 0;
-}
+} */
 
 .template1_v1 .elm1 {
 	position: relative;
@@ -97,20 +110,26 @@
 	display: none;
 }
 
-.words div {
+.words .ans{
 	width: 130px;
-	height: 50px;
-	background-color: #fff;
-	/* display: none; */
-	border-radius: 10px;
-}
-
-.words span {
+    height: 50px;
+    background-color: #df8d46;
+    /* display: none; */
+    border-radius: 10px;
+    border: 2px solid #ffffff;
 	color: black;
 	font-size: 30px;
-	/* background-color: antiquewhite; */
+	font-weight: bold;
 }
 
+/* .words span {
+	color: black;
+	font-size: 30px;
+	 background-color: antiquewhite; 
+} */
+.dis{
+	opacity: 0.6;
+}
 .canv {
 	position: relative;
 	left: 360px;
@@ -154,10 +173,15 @@
 	/* border-radius: 20px; */
 	left: 425px;
 	z-index: 1;
-	top: 199px;
+	top: 113px;
 	align-items: center;
 }
+.start button:focus{
+	background-color: #f5821f!important;
+	border-color: #f5821f!important;
 
+    box-shadow: 21px 0px 54px 7px white inset!important;
+}
 .yp-feedback-anim {
 	background: transparent;
 	background-repeat: no-repeat;
@@ -167,11 +191,17 @@
 	transform: translate(-50%, -50%);
 	top: 50%;
 }
+.titleImg{
+	position: absolute;
+	top: -21%;
+    left: -1%;
+	display: none;
 
+}
 .yp-feedback-anim--correct {
 	width: 540px;
 	height: 540px;
-	background-image: url("./happybee.png");
+	background-image: url("../../assets/images/happybee.png");
 }
 
 .yp-feedback-anim--correct.yp-animate {
@@ -181,7 +211,7 @@
 .yp-feedback-anim--incorrect {
 	width: 540px;
 	height: 540px;
-	background-image: url("./sadbee.png") !important;
+	background-image: url("../../assets/images/sadbee.png") !important;
 }
 
 .yp-feedback-anim--incorrect.yp-animate {
@@ -247,14 +277,16 @@
 }
 
 .start button {
-	height: 24%;
-	width: 83%;
-	font-size: 40px;
-	background-color: #f5821f;
+    height: 70%;
+    width: 70%;
+    font-size: 48px;
+    background-color: #f5821f;
+    border-radius: 50%;
+    box-shadow: 21px 0px 54px 7px white inset;
 }
 
 .start button:hover {
-	background-color: #183dd0;
+	background-color: #f5821f;
 }
 
 

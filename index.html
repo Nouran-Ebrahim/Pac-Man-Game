@@ -32,7 +32,7 @@
       <div class="container-fluid noPadding">
         <!-- header start -->
         <div class="col-xs-12 noPadding header">
-          <div class="box1 title" data-audioSrc="assets/audio/p7e8.mp3" onClick="fnTitleAudioClick(this)">
+          <div class="box1 title" data-audioSrc="assets/audio/pacman game.m4a" onClick="fnTitleAudioClick(this)">
             <img src="assets/images/audio_icon.png" class="img-responsive" />
           </div>
           <div class="boxhead5 headingTitle">
@@ -47,27 +47,32 @@
             <img src="assets/images/help_icon.png" class="img-responsive" />
           </div>
         </div>
+        <audio id="corr" preload="auto" src="./assets/audio/correct.mp3"></audio>
+        <audio id="incorr" preload="auto" src="./assets/audio/incorrect.mp3"></audio>
         <audio id="audioPlayer1" preload="auto" src=""></audio>
-        <audio id="audioPlayer2" preload="auto" src=""></audio>
+      <audio id="audioPlayer2" preload="auto" src=""></audio>
         <!-- header end -->
 
         <!-- page start -->
         <section class="col-xs-12 pageContainer">
           <div class="pageBg col-xs-12"></div>
           <div class="pageContent col-xs-12">
-            <div id="myCarousel" class="carousel slide col-xs-12" data-ride="carousel" data-interval="0"
+            <div class="layer">
+                <div id="myCarousel" class="carousel slide col-xs-12" data-ride="carousel" data-interval="0"
               data-wrap="false">
 
               <!-- Wrapper for slides -->
               <div class="carousel-inner">
-                <div class="item active" data-audioSrc="assets/audio/p7e8q1.mp3">
+                <div class="item active" data-audioSrc="assets/audio/pacman game.m4a">
                   <div class="template1_v1">
 
                     <div class="question question1">
+                      <div class="bg-canva"></div>
+                      <div class="name"><img src="./assets/images/pacman-name.png" alt=""></div>
+                      <div class="titleImg"><img src="./assets/images/pacman-img.png" alt=""></div>
                       <div class="start">
                         <button type="button" class="btn btn-primary start-btn" onclick="start()">Start</button>
                       </div>
-                      <!-- <img id="win-img" src="./img/happybee.png" alt="" style="display: none;"> -->
                       <div id="feed" class="yp-feedback yp-u-hide">
                         <div id="win-img" class="yp-feedback-anim yp-feedback-anim--correct yp-u-hide"></div>
                         <div id="lose-img" class="yp-feedback-anim yp-feedback-anim--incorrect yp-u-hide"></div>
@@ -91,19 +96,14 @@
                         </div>
 
                         <div class="cd-pointer"></div>
-
                         <div class="cd-number-wrapper">
                           <span class="cd-number-five">3</span>
                           <span class="cd-number-four">2</span>
-                          <span class="cd-number-three">1</span>
-                          <!-- <span class="cd-number-two">2</span>
-                          <span class="cd-number-one">1</span> -->
-
+                          <span class="cd-number-three">1</span>                  
                         </div>
                       </div>
                       <div class="canv">
                         <div class="cont">
-                          <div class="data"><span id="scoret">Score: </span><span id="scoreEl"> &nbsp;0</span></div>
                           <div class="life">
                             <img class="heart" src="./img/Heart.png" alt="heart shape">
                             <img class="heart" src="./img/Heart.png" alt="heart shape">
@@ -113,18 +113,17 @@
                         <canvas></canvas>
                       </div>
                       <div class="words">
-                        <div><span id="w1"></span></div>
-                        <div><span id="w2"></span></div>
-                        <div><span id="w3"></span></div>
-                        <div><span id="w4"></span></div>
+                        <div id="this" class="ans" data-ans="0"></div>
+                        <div id="is" class="ans" data-ans="1"></div>
+                        <div id="my" class="ans" data-ans="2"></div>
+                        <div id="sister" class="ans" data-ans="3"></div>
                       </div>
                     </div>
                   </div>
                 </div>
-
-
               </div>
             </div>
+          </div>
           </div>
         </section>
         <!-- page end -->
@@ -190,8 +189,6 @@
           </div>
         </div>
         <!-- footer end -->
-
-
         <div class="resoursePopup" style="display: none;">
           <div class="resourseContainer">
             <img class="closeBtn" src="assets/images/close_icon.png">
@@ -209,8 +206,6 @@
             </div>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
@@ -222,7 +217,7 @@
     });  
   </script>
   <script type="text/javascript" src="js/template/p7e8.js"></script>
-  <script type="text/javascript" src="script.js"></script>
+  <script type="text/javascript" src="./js/script.js"></script>
   <script type="text/javascript" src="js/index.js"></script>
 </body>
 
