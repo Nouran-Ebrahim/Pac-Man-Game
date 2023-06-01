@@ -50,7 +50,7 @@
         <audio id="corr" preload="auto" src="./assets/audio/correct.mp3"></audio>
         <audio id="incorr" preload="auto" src="./assets/audio/incorrect.mp3"></audio>
         <audio id="audioPlayer1" preload="auto" src=""></audio>
-      <audio id="audioPlayer2" preload="auto" src=""></audio>
+        <audio id="audioPlayer2" preload="auto" src=""></audio>
         <!-- header end -->
 
         <!-- page start -->
@@ -58,72 +58,79 @@
           <div class="pageBg col-xs-12"></div>
           <div class="pageContent col-xs-12">
             <div class="layer">
-                <div id="myCarousel" class="carousel slide col-xs-12" data-ride="carousel" data-interval="0"
-              data-wrap="false">
+              <div id="myCarousel" class="carousel slide col-xs-12" data-ride="carousel" data-interval="0"
+                data-wrap="false">
 
-              <!-- Wrapper for slides -->
-              <div class="carousel-inner">
-                <div class="item active" data-audioSrc="assets/audio/pacman game.m4a">
-                  <div class="template1_v1">
+                <!-- Wrapper for slides -->
+                <div class="carousel-inner">
+                  <div class="item active" data-audioSrc="assets/audio/pacman game.m4a">
+                    <div class="template1_v1">
 
-                    <div class="question question1">
-                      <div class="bg-canva"></div>
-                      <div class="name"><img src="./assets/images/pacman-name.png" alt=""></div>
-                      <div class="titleImg"><img src="./assets/images/pacman-img.png" alt=""></div>
-                      <div class="start">
-                        <button type="button" class="btn btn-primary start-btn" onclick="start()">Start</button>
+                      <div class="question question1">
+                        <div class="bg-canvas "></div>
+                        <div class="start">
+                          <button type="button" class="btn btn-primary start-btn" onclick="start()">Start</button>
+                        </div>
+                    <div class="levels">
+                      <div class="level-1">
+                        <button type="button" class="btn btn-primary"onclick="levels()">Level 1</button>
                       </div>
-                      <div id="feed" class="yp-feedback yp-u-hide">
-                        <div id="win-img" class="yp-feedback-anim yp-feedback-anim--correct yp-u-hide"></div>
-                        <div id="lose-img" class="yp-feedback-anim yp-feedback-anim--incorrect yp-u-hide"></div>
+                      <div class="level-2">
+                        <button type="button" class="btn btn-primary "onclick="levels()">Level 2</button>
                       </div>
-
-                      <div class="cd-wrapper">
-                        <div class="cd-outer-top-left">
-                          <div class="cd-inner-top-left"></div>
+                    </div>
+                        <div id="feed" class="yp-feedback yp-u-hide">
+                          <div id="win-img" class="yp-feedback-anim yp-feedback-anim--correct yp-u-hide"></div>
+                          <div id="lose-img" class="yp-feedback-anim yp-feedback-anim--incorrect yp-u-hide"></div>
                         </div>
 
-                        <div class="cd-outer-top-right">
-                          <div class="cd-inner-top-right"></div>
-                        </div>
+                        <div class="cd-wrapper">
+                          <div class="cd-outer-top-left">
+                            <div class="cd-inner-top-left"></div>
+                          </div>
 
-                        <div class="cd-outer-btm-left">
-                          <div class="cd-inner-btm-left"></div>
-                        </div>
+                          <div class="cd-outer-top-right">
+                            <div class="cd-inner-top-right"></div>
+                          </div>
 
-                        <div class="cd-outer-btm-right">
-                          <div class="cd-inner-btm-right"></div>
-                        </div>
+                          <div class="cd-outer-btm-left">
+                            <div class="cd-inner-btm-left"></div>
+                          </div>
 
-                        <div class="cd-pointer"></div>
-                        <div class="cd-number-wrapper">
-                          <span class="cd-number-five">3</span>
-                          <span class="cd-number-four">2</span>
-                          <span class="cd-number-three">1</span>                  
-                        </div>
-                      </div>
-                      <div class="canv">
-                        <div class="cont">
-                          <div class="life">
-                            <img class="heart" src="./img/Heart.png" alt="heart shape">
-                            <img class="heart" src="./img/Heart.png" alt="heart shape">
-                            <img class="heart" src="./img/Heart.png" alt="heart shape">
+                          <div class="cd-outer-btm-right">
+                            <div class="cd-inner-btm-right"></div>
+                          </div>
+
+                          <div class="cd-pointer"></div>
+                          <div class="cd-number-wrapper">
+                            <span class="cd-number-five">3</span>
+                            <span class="cd-number-four">2</span>
+                            <span class="cd-number-three">1</span>
                           </div>
                         </div>
-                        <canvas></canvas>
-                      </div>
-                      <div class="words">
-                        <div id="this" class="ans" data-ans="0"></div>
-                        <div id="is" class="ans" data-ans="1"></div>
-                        <div id="my" class="ans" data-ans="2"></div>
-                        <div id="sister" class="ans" data-ans="3"></div>
+                        <div class="canv">
+                          <div class="cont">
+                            <div class="life">
+                              <img class="heart" src="./img/Heart.png" alt="heart shape">
+                              <img class="heart" src="./img/Heart.png" alt="heart shape">
+                              <img class="heart" src="./img/Heart.png" alt="heart shape">
+                            </div>
+                          </div>
+                          <canvas></canvas>
+                        </div>
+                        <div class="words">
+                          <div id="" class="ans" data-ans="0"></div>
+                          <div id="" class="ans" data-ans="1"></div>
+                          <div id="" class="ans" data-ans="2"></div>
+                          <div id="" class="ans" data-ans="3"></div>
+                          
+                        </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
             </div>
-          </div>
           </div>
         </section>
         <!-- page end -->
@@ -132,12 +139,12 @@
         <div class="row">
           <div class="col-xs-12 footer">
             <div class="box1">
-              <div class="reloadBtnAll" onclick="fnReloadAll()">
+              <div class="reloadBtnAll btn-disabled" onclick="fnReloadAll()">
                 <img src="assets/images/replay_icon.png" class="img-responsive" />
               </div>
             </div>
 
-            <div class="box3 hide">
+            <div class="box3" style="visibility: hidden;">
               <div class="audioPlayerContainer" id="audioDragContainer">
                 <div class="col-xs-12 controlsDiv">
                   <div class="controlsinline">
@@ -157,29 +164,29 @@
               </div>
             </div>
 
-            <div class="box1 hide">
+            <div class="box1" style="visibility: hidden;">
               <div class="reloadBtnScreen">
                 <img src="assets/images/reload_icon.png" class="img-responsive" />
               </div>
             </div>
 
-            <div class="box2 hide">
-              <div class="showAnsBtn">
+            <div class="box2">
+              <div class="showAnsBtn btn-disabled"onclick="showAns()">
                 <img src="assets/images/showAns_icon.png" class="img-responsive" />
               </div>
             </div>
 
-            <div class="box1 hide">
+            <div class="box1" style="visibility: hidden;">
               <div class="backBtn">
                 <img src="assets/images/back_icon.png" class="img-responsive" />
               </div>
             </div>
 
-            <div class="box4 hide">
+            <div class="box4" style="visibility: hidden;">
               <div class="pageNumber">1 of 4</div>
             </div>
 
-            <div class="box1 hide">
+            <div class="box1" style="visibility: hidden;">
               <div class="nextBtn">
                 <img src="assets/images/next_icon.png" class="img-responsive inlineblock" />
               </div>

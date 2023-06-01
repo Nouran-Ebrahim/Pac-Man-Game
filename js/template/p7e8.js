@@ -94,19 +94,19 @@ function fnAudio(obj){
       });
     }	
 }
-function showAns(){	
-	isMusicPlaying = false;
+// function showAns(){	
+// 	isMusicPlaying = false;
 	
-	$audio1[0].pause();
-	$audio2[0].pause();
-	stopAudio();
-	isMusic1Playing = false;
+// 	$audio1[0].pause();
+// 	$audio2[0].pause();
+// 	stopAudio();
+// 	isMusic1Playing = false;
 	
-	$('div.active').find('.option[data-Answer="correct"]').append(correctImg);
-	$('div.active').find('.option[data-Answer="incorrect"]').addClass('disabled');
-	$('div.active').find('.option').addClass('optDisable').off('click');
-	$(this).addClass('disabled');
-}
+// 	$('div.active').find('.option[data-Answer="correct"]').append(correctImg);
+// 	$('div.active').find('.option[data-Answer="incorrect"]').addClass('disabled');
+// 	$('div.active').find('.option').addClass('optDisable').off('click');
+// 	$(this).addClass('disabled');
+// }
 
 function setAudio(_src){	
 	if(_src == ""){

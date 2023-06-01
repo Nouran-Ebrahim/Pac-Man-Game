@@ -21,7 +21,40 @@ body {
   /*width:1280px;max-height:630px;*/
   margin: 0 auto;
 }
-
+.levels{
+  display:none;
+  justify-content: center;
+  align-items: center;
+  gap: 67px;
+  height: 200px;
+  position: absolute;
+  top: 241px;
+  left: 369px;
+  z-index: 2;
+}
+.levels button{
+  height: 70%;
+  font-size: 48px;
+  background-color: #f5821f;
+  border-radius: 20px;
+  box-shadow: 21px 0px 54px 7px white inset;
+  border: #f5821f!important;
+  padding: 15px 25px;
+}
+.levels button:hover{
+  background-color: #f5821f;
+  border-radius: 20px;
+  box-shadow: 21px 0px 54px 7px white inset;
+  border: #f5821f!important;
+  padding: 15px 25px;
+}
+.levels button:focus{
+  background-color: #f5821f!important;
+  border-radius: 20px;
+  box-shadow: 21px 0px 54px 7px white inset;
+  border: #f5821f!important;
+  padding: 15px 25px;
+}
 .header {
   padding-bottom: 10px;
   overflow: hidden;
@@ -370,16 +403,23 @@ body {
 .headingTitle h1 {
   margin: 0;
   font-size: 38px;
-
-
-
 }
-.bg-canva{
+
+.bg-canva1{
+  position: absolute;
+    width: 680px;
+    height: 517px;
+    background-color: black;
+    left: 254px;
+    top: 67px;
+    display: none;
+}
+.bg-canva2{
   position: absolute;
     width: 439px;
     height: 517px;
     background-color: black;
-    left: 360px;
+    left: 373px;
     top: 67px;
     display: none;
 }
@@ -403,12 +443,12 @@ body {
   z-index: 1;
   border: 5px solid #f5821f;
   border-radius: 20px;
-  background-color: black;
-background-image: url('../assets/images/pacman_bg.jpg');
+  /* background-color: black; */
+background-image: url('../assets/images/pacman.jpg');
 border-radius: 20px;
   background-size: cover;
 
-
+background-position: center center;
 
 }
 
