@@ -1,3 +1,3 @@
 # Pac Man Game
-### Sphinx Publishing Company task edits from test branch
+### Sphinx Publishing Company task 
 - **Task link: https://nouran-ebrahim.github.io/Pac-Man-Game/**
